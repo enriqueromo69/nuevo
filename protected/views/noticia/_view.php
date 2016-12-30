@@ -3,10 +3,8 @@
 /* @var $data Noticia */
 ?>
 <div class="control-group">
-	
 
-
-<div class="col-sm-6 col-md-4">
+<div class="col-md-4 ">
 <h2><?php echo CHtml::encode($data->titulonoticia); ?></h2>
 <h4><?php echo CHtml::encode($data->fechanoticias); ?></h4>
 <p><?php echo ($data->resumen); ?></p>

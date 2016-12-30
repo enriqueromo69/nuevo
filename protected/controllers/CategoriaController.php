@@ -22,6 +22,7 @@ class CategoriaController extends Controller
 	public function accessRules()
 	{
 		return array(
+
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
 				'actions'=>array('index','view','create','update','admin','delete'),
 				'users'=>array('@'),

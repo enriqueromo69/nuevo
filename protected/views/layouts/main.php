@@ -4,7 +4,7 @@
 
 <title><?php echo CHtml::encode($this->pageTitle); ?></title>
 
-<link rel="stylesheet" type="text/css" href="/nuevo/css/Style.css">
+<link rel="stylesheet" type="text/css" href="./css/Style.css">
 
 <style type="text/css">
 
@@ -30,7 +30,7 @@ array(
 			array('label'=>'Regitrar', 'url'=>array('/site/register'), 'visible'=>!Yii::app()->user->isGuest),
 			array('label'=>'Modificar', 'url'=>array('/site/change'), 'visible'=>!Yii::app()->user->isGuest),
 			array('label'=>'Categorias', 'url'=>array('/categoria/index'), 'visible'=>!Yii::app()->user->isGuest),
-			array('label'=>'Noticias', 'url'=>array('/noticia/index'), 'visible'=>!Yii::app()->user->isGuest),
+			array('label'=>'Noticias', 'url'=>array('/noticia/index')),
 			array('label'=>'Login', 'url'=>array('/site/login'), 'visible'=>Yii::app()->user->isGuest),
 			array('label'=>'Logout ('.Yii::app()->user->name.')', 'url'=>array('/site/logout'), 'visible'=>!Yii::app()->user->isGuest)
 		),

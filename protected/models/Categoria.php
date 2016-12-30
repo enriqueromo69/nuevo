@@ -83,8 +83,9 @@ class Categoria extends CActiveRecord
 			'criteria'=>$criteria,
 		));
 	}
-	public function toList()
+	public static function toList()
 	{
+
 		$model =self::model()->findAll();
 		return CHtml::listData($model,'idcategoria','categoriaDes');	
 	}

@@ -1,7 +1,12 @@
 <?php
 
-class NoticiaController extends Controller
+class NoticiassController extends Controller
 {
+	/**
+	 * @var string the default layout for the views. Defaults to '//layouts/column2', meaning
+	 * using two-column layout. See 'protected/views/layouts/column2.php'.
+	 */
+	public $layout='//layouts/column2';
 
 	/**
 	 * @return array action filters
@@ -23,15 +28,17 @@ class NoticiaController extends Controller
 	{
 		return array(
 			array('allow',  // allow all users to perform 'index' and 'view' actions
-			'actions'=>array('index','view','Lista'),
-			'users'=>array('*'),
+				'actions'=>array('index','view'),
+				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				//'index','view',
-				'actions'=>array('create','update','admin','delete'),
+				'actions'=>array('create','update'),
 				'users'=>array('@'),
 			),
-			
+			array('allow', // allow admin user to perform 'admin' and 'delete' actions
+				'actions'=>array('admin','delete'),
+				'users'=>array('admin'),
+			),
 			array('deny',  // deny all users
 				'users'=>array('*'),
 			),
@@ -49,14 +56,6 @@ class NoticiaController extends Controller
 		));
 	}
 
-	public function actionLista($id)
-	{
-		//$this->loadModel($id)->delete();
-
-		$this->render('Lista',array(
-			'model'=>$this->loadModel($id),
-		));
-	}
 	/**
 	 * Creates a new model.
 	 * If creation is successful, the browser will be redirected to the 'view' page.
@@ -64,6 +63,7 @@ class NoticiaController extends Controller
 	public function actionCreate()
 	{
 		$model=new Noticia;
+
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
@@ -122,20 +122,26 @@ class NoticiaController extends Controller
 	 */
 	public function actionIndex()
 	{
-		$model=new Noticia('search');
-		$model->unsetAttributes();  // clear any default values
-		if(isset($_GET['Noticia']))
-			$model->attributes=$_GET['Noticia'];
-
+		$dataProvider=new CActiveDataProvider('Noticia');
 		$this->render('index',array(
-			'model'=>$model,
+			'dataProvider'=>$dataProvider,
 		));
 	}
 
 	/**
 	 * Manages all models.
 	 */
+	public function actionAdmin()
+	{
+		$model=new Noticia('search');
+		$model->unsetAttributes();  // clear any default values
+		if(isset($_GET['Noticia']))
+			$model->attributes=$_GET['Noticia'];
 
+		$this->render('admin',array(
+			'model'=>$model,
+		));
+	}
 
 	/**
 	 * Returns the data model based on the primary key given in the GET variable.

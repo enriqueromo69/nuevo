@@ -1,12 +1,11 @@
 <?php
-/* @var $this NoticiaController */
+/* @var $this NoticiassController */
 /* @var $model Noticia */
 
 $this->breadcrumbs=array(
 	'Noticias'=>array('index'),
 	$model->idnoticia,
 );
-/*
 
 $this->menu=array(
 	array('label'=>'List Noticia', 'url'=>array('index')),
@@ -15,51 +14,22 @@ $this->menu=array(
 	array('label'=>'Delete Noticia', 'url'=>'#', 'linkOptions'=>array('submit'=>array('delete','id'=>$model->idnoticia),'confirm'=>'Are you sure you want to delete this item?')),
 	array('label'=>'Manage Noticia', 'url'=>array('admin')),
 );
-*/
 ?>
 
-<h1>Lista de  Noticia #<?php echo $model->idnoticia; ?></h1>
+<h1>View Noticia #<?php echo $model->idnoticia; ?></h1>
 
-
-<?php 
-
-//para poder cargar solo los datos mediante un echo
-
-	$this->widget('bootstrap.widgets.TbDetailView', array(
+<?php $this->widget('zii.widgets.CDetailView', array(
 	'data'=>$model,
 	'attributes'=>array(
-		//'idnoticia',
+		'idnoticia',
 		'titulonoticia',
 		'Fechapublinoticiascol',
 		'fechanoticias',
 		'autornoticia',
-		'categoria.categoriaDes',
+		'resumen',
+		'descripnoticia',
+		'idcategoria',
+		'imgnoticiaFut',
+		'imgnoticiaFin',
 	),
-));
-
- ?>
-<div class="controls">
-
-
-<!-- Stack the columns on mobile by making one full-width and the other half-width -->
-<div class="row">
-
-	<div class="col-md-7">
-		<p><?php echo $model->resumen; ?></p>
-	</div>
-
-	<div class="col-md-4">
-		<p><?php echo $model->resumen; ?></p>
-	</div>
-
-	<div class="col-md-11">
-		<p><?php echo $model->descripnoticia; ?></p>
-	</div>
-</div>
-
-
-
-
-
-
-</div>
+)); ?>
