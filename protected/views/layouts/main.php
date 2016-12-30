@@ -3,7 +3,7 @@
 <head>
 
 <title><?php echo CHtml::encode($this->pageTitle); ?></title>
-
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <link rel="stylesheet" type="text/css" href="./css/Style.css">
 
 <style type="text/css">
