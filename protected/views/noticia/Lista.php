@@ -49,11 +49,22 @@ $this->menu=array(
 	</div>
 
 	<div class="col-md-4">
-		<p><?php echo $model->resumen; ?></p>
+		<p><?php 
+		echo CHtml::image(Yii::app()->request->baseUrl.$model->imgnoticiaFut,"imagen",array("width"=>200));
+	    ?></p>
 	</div>
-
-	<div class="col-md-11">
+	<div class="col-md-7">
 		<p><?php echo $model->descripnoticia; ?></p>
+	</div>
+	<div class="col-md-4">
+		<p><?php 
+		echo CHtml::image(Yii::app()->request->baseUrl.$model->imgnoticiaFin,"imagen",array("width"=>500));
+	    ?></p>
+	</div>
+	<div class="col-md-11">
+		<p><?php 
+		//echo $model->descripnoticia; 
+		?></p>
 	</div>
 </div>
 

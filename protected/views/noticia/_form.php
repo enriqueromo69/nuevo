@@ -9,6 +9,9 @@
 <?php $form=$this->beginWidget('CActiveForm', array(
 	'id'=>'noticia-form',
 	'enableAjaxValidation'=>false,
+	'htmlOptions' => array(
+        'enctype' => 'multipart/form-data',
+    ),
 )); ?>
 
 	<p class="note">Fields with <span class="required">*</span> are required.</p>
@@ -92,14 +95,26 @@
 
 <div class="row">
 	
-	<div class="col-xs-6 col-md-2">
-	<?php echo $form->labelEx($model,'titulonoticia');?>
-	
-	<?php echo $form->textField($model,'titulonoticia',array('size'=>60,'maxlength'=>255,'class'=>'col-xs-12')); ?>
+<div class="col-xs-6 col-md-2">
 
-	<?php echo $form->error($model,'titulonoticia'); ?>	
-	</div>
+<?php echo $form->labelEx($model,'imgnoticiaFut'); ?>        
+<?php echo CHtml::activeFileField($model, 'imgnoticiaFut'); ?> 
+<?php echo $form->error($model,'imgnoticiaFut'); ?>
 
+</div>
+
+ <?php 
+ //echo CHtml::image(Yii::app()->request->baseUrl.'/images/'.$model->imgnoticiaFut,"imagen",array("width"=>200)); 
+ ?>
+
+<div class="col-xs-6 col-md-2">
+
+<?php echo $form->labelEx($model,'imgnoticiaFin'); ?>        
+<?php echo CHtml::activeFileField($model, 'imgnoticiaFin'); ?> 
+<?php echo $form->error($model,'imgnoticiaFin'); ?>
+
+
+</div>
 
 </div>
 
@@ -121,7 +136,6 @@
 	<div >
 		<?php echo $form->labelEx($model,'descripnoticia'); ?>
 		<?php //echo $form->textArea($model,'descripnoticia',array('rows'=>6, 'cols'=>50)); 
-
 		$this->widget(
 		'bootstrap.widgets.TbCKEditor',
 		array(
@@ -141,6 +155,3 @@
 
 
 <?php $this->endWidget(); ?>
-
-</div><!-- form -->
-

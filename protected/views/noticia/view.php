@@ -46,6 +46,7 @@ $this->menu=array(
 <?php //echo $model->resumen; ?>
  <div class="control-group">
   <div class="col-xs-12 col-sm-6 col-md-8"><?php echo $model->resumen; ?></div>
+  
   <div class="col-xs-6 col-md-4">.col-xs-6 .col-md-4</div>
 </div>
 

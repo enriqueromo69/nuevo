@@ -45,6 +45,17 @@ return array(
 		'bootstrap'=>array(
 			'class'=>'ext.bootstrap.components.Bootstrap',
 		),
+		
+		'Smtpmail'=>array(
+            'class'=>'ext.swiftMailer.SwiftMailer',
+            'Host'=>"mail.yourdomain.com",
+            'Username'=>'test@yourdomain.com',
+            'Password'=>'test',
+            'Mailer'=>'smtp',
+            'Port'=>26,
+            'SMTPAuth'=>true, 
+        ),
+
 		// uncomment the following to enable URLs in path-format
 		/*
 		'urlManager'=>array(

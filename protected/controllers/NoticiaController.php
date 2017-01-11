@@ -23,7 +23,7 @@ class NoticiaController extends Controller
 	{
 		return array(
 			array('allow',  // allow all users to perform 'index' and 'view' actions
-			'actions'=>array('index','view','Lista'),
+			'actions'=>array('index','view','Lista','paginacion'),
 			'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
@@ -39,6 +39,7 @@ class NoticiaController extends Controller
 	}
 
 	/**
+     _paginacion.php
 	 * Displays a particular model.
 	 * @param integer $id the ID of the model to be displayed
 	 */
@@ -47,6 +48,27 @@ class NoticiaController extends Controller
 		$this->render('view',array(
 			'model'=>$this->loadModel($id),
 		));
+	}
+
+	public function actionPaginacion()
+	{
+
+		$criteria=new CDbCriteria();
+		$count=Noticia::model()->count($criteria);
+
+		//Le pasamos el total de registros de la tabla
+		$pages=new CPagination($count);
+
+		// Resultados por página
+		$pages->pageSize=10;
+
+		$pages->applyLimit($criteria);
+		$getUsuarios=Noticia::model()->findAll($criteria);
+
+		$this->render('paginacion',array(
+		        "model"=>$getUsuarios,
+		        "pages"=>$pages,
+		    ));
 	}
 
 	public function actionLista($id)
@@ -61,23 +83,72 @@ class NoticiaController extends Controller
 	 * Creates a new model.
 	 * If creation is successful, the browser will be redirected to the 'view' page.
 	 */
+	/*
+	public function actionImagen()
+	{
+	    $model = new ImagenForm();
+	     if(isset($_POST['ImagenForm']))
+	    {                
+	        if(isset($_FILES) and $_FILES['ImagenForm']['error']['foto']==0)
+	         {
+	            $uf = CUploadedFile::getInstance($model, 'foto');
+	            if($uf->getExtensionName() == "jpg" || $uf->getExtensionName() == "png" ||
+	                $uf->getExtensionName() == "jpeg" || $uf->getExtensionName()== "gif")
+	            {
+	                  $uf->saveAs(Yii::getPathOfAlias('webroot').'/images/'.$uf->getName());
+	                
+	                  Yii::app()->user->setFlash('noerror_imagen',"Imagen: ".$uf->getName()." Subida Correctamente");
+	                  Yii::app()->user->setFlash('imagen','/images/'.$uf->getName());
+	                  $this->refresh();
+	            }else{
+	                Yii::app()->user->setFlash('error_imagen','Imagen no valida');
+	            }
+	            
+	         }
+	    }
+	    $this->render('imagen',array('model'=>$model));
+	}
+
+	*/
+
 	public function actionCreate()
 	{
 		$model=new Noticia;
+
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
 		if(isset($_POST['Noticia']))
 		{
+			$rnd = rand(0,9999);  // Generamos un numero aleatorio entre 0-9999
+			$rnd2 = rand(0,9999);  // Generamos un numero aleatorio entre 0-9999
 			$model->attributes=$_POST['Noticia'];
-			if($model->save())
-				$this->redirect(array('view','id'=>$model->idnoticia));
-		}
 
+			$uploadedFile=CUploadedFile::getInstance($model,'imgnoticiaFut');
+            $fileName = "{$rnd}-{$uploadedFile}";  // numero aleatorio  + nombre de archivo
+            $model->imgnoticiaFut = "/images/".$fileName;
+            //
+			$uploadedFile2=CUploadedFile::getInstance($model,'imgnoticiaFin');
+			$fileName2 = "{$rnd2}-{$uploadedFile2}";  // numero aleatorio  + nombre de archivo
+			$model->imgnoticiaFin = "/images/".$fileName2;
+			//echo $fileName ;
+			if($model->save())	{
+				//$uploadedFile->saveAs(Yii::app()->basePath.'/images/'.$fileName);  // la imagen se subirá a la 
+				$uploadedFile->saveAs(Yii::getPathOfAlias('webroot').'/images/'.$fileName);
+				$uploadedFile2->saveAs(Yii::getPathOfAlias('webroot').'/images/'.$fileName2);
+				$this->redirect(array('view','id'=>$model->idnoticia));
+			}
+
+
+			//$uf->saveAs(Yii::getPathOfAlias('webroot').'/images/'.$uf->getName());
+		}
+        
 		$this->render('create',array(
 			'model'=>$model,
 		));
 	}
+
+	
 
 	/**
 	 * Updates a particular model.
@@ -93,9 +164,33 @@ class NoticiaController extends Controller
 
 		if(isset($_POST['Noticia']))
 		{
+			$_POST['Noticia']['imgnoticiaFut'] = $model->imgnoticiaFut;
+
+			$_POST['Noticia']['imgnoticiaFin'] = $model->imgnoticiaFin;
+
 			$model->attributes=$_POST['Noticia'];
-			if($model->save())
+
+			$uploadedFile=CUploadedFile::getInstance($model,'imgnoticiaFut');
+			$uploadedFile2=CUploadedFile::getInstance($model,'imgnoticiaFin');
+			
+			if($model->save()){
+				if(!empty($uploadedFile))  // check if uploaded file is set or not
+                {
+                    //$uploadedFile->saveAs(Yii::app()->basePath.'/images/'.$model->imgnoticiaFut);
+                    $uploadedFile->saveAs(Yii::getPathOfAlias('webroot').'/images/'.$uploadedFile->getName());
+                    //$uploadedFile2->saveAs(Yii::getPathOfAlias('webroot').'/images/'.$imgnoticiaFin->getName());
+
+                }
+                if(!empty($uploadedFile2))  // check if uploaded file is set or not
+                {
+                    //$uploadedFile->saveAs(Yii::app()->basePath.'/images/'.$model->imgnoticiaFut);
+                    //$uploadedFile->saveAs(Yii::getPathOfAlias('webroot').'/images/'.$uploadedFile->getName());
+                    $uploadedFile2->saveAs(Yii::getPathOfAlias('webroot').'/images/'.$imgnoticiaFin->getName());
+
+                }
+
 				$this->redirect(array('view','id'=>$model->idnoticia));
+			}
 		}
 
 		$this->render('update',array(
@@ -164,4 +259,5 @@ class NoticiaController extends Controller
 			Yii::app()->end();
 		}
 	}
+
 }

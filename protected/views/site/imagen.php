@@ -27,11 +27,20 @@ $this->breadcrumbs=array(
 	),
 )); ?>
 
-	<p class="note">Los Campos con<span class="required">*</span> Son Boligatorios.</p>
+	<p class="note">Los Campos con<span class="required">*</span> Son obligatorios.</p>
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'foto'); ?>
+		<div>
 		<?php echo $form->fileField($model,'foto'); ?>
+		</div>
+		
+		<?php 
+		//echo CHtml::image(Yii::app()->request->baseUrl."".Yii::app()->user->getFlash("imagen"));
+		//cargamos la imagen
+		?> 
+		<?php echo "hola es la imagen";?>
+
 		<?php echo $form->error($model,'foto'); ?>
 	</div>
 	<div class="row buttons">

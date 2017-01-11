@@ -42,6 +42,8 @@ class Noticia extends CActiveRecord
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
 			array('idnoticia, titulonoticia, Fechapublinoticiascol, fechanoticias, autornoticia, resumen, descripnoticia, idcategoria, imgnoticiaFut, imgnoticiaFin', 'safe', 'on'=>'search'),
+ 			
+			/**/
 		);
 	}
 
@@ -71,8 +73,8 @@ class Noticia extends CActiveRecord
 			'resumen' => 'Resumen',
 			'descripnoticia' => 'Descripcion Noticia',
 			'idcategoria' => 'Idcategoria',
-			'imgnoticiaFut' => 'Imgnoticia Fut',
-			'imgnoticiaFin' => 'Imgnoticia Fin',
+			'imgnoticiaFut' => 'Imagen Uno',
+			'imgnoticiaFin' => 'Imagen Dos',			
 		);
 	}
 
