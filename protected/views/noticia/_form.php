@@ -19,7 +19,7 @@
 	<?php echo $form->errorSummary($model); ?>
 
 <div class="row">
-	<div class="col-xs-12 col-md-10">
+	<div class="col-xs-12 col-md-8">
 	<?php echo $form->labelEx($model,'titulonoticia');?>
 	
 	<?php echo $form->textField($model,'titulonoticia',array('size'=>60,'maxlength'=>255,'class'=>'col-xs-12')); ?>
@@ -31,7 +31,7 @@
 
 <div class="row">
 
-	<div class="col-xs-6 col-md-2 ">
+	<div class="col-xs-6 col-md-3">
 	<?php echo $form->labelEx($model,'Fechapublinoticiascol'); ?>
 	<?php //echo $form->textField($model,'Fechapublinoticiascol'); 
 	$this->widget(
@@ -54,7 +54,7 @@
 
 </div>
 
-	<div class="col-xs-6 col-md-2">
+	<div class="col-xs-6 col-md-3">
 		<?php echo $form->labelEx($model,'fechanoticias'); ?>
 		<?php 
 		//echo $form->textField($model,'fechanoticias'); 
@@ -78,13 +78,13 @@
 		<?php echo $form->error($model,'fechanoticias'); ?>
 
 	</div>
-	<div class="col-xs-6 col-md-2">
+	<div class="col-xs-6 col-md-3">
 		<?php echo $form->labelEx($model,'Categoria'); ?>
 		<?php echo $form->dropDownList($model,'idcategoria',Categoria::toList(),array('empty'=>'Seleccione...')); ?>
 		<?php echo $form->error($model,'idcategoria'); ?>
 
 	</div>
-	<div class="col-xs-6 col-md-2">
+	<div class="col-xs-6 col-md-4">
 		<?php echo $form->labelEx($model,'autornoticia'); ?>
 		<?php echo $form->textField($model,'autornoticia',array('size'=>60,'maxlength'=>255)); ?>
 		<?php echo $form->error($model,'autornoticia'); ?>
@@ -95,7 +95,7 @@
 
 <div class="row">
 	
-<div class="col-xs-6 col-md-2">
+<div class="col-xs-6 col-md-3">
 
 <?php echo $form->labelEx($model,'imgnoticiaFut'); ?>        
 <?php echo CHtml::activeFileField($model, 'imgnoticiaFut'); ?> 
@@ -107,7 +107,7 @@
  //echo CHtml::image(Yii::app()->request->baseUrl.'/images/'.$model->imgnoticiaFut,"imagen",array("width"=>200)); 
  ?>
 
-<div class="col-xs-6 col-md-2">
+<div class="col-xs-4 col-md-3">
 
 <?php echo $form->labelEx($model,'imgnoticiaFin'); ?>        
 <?php echo CHtml::activeFileField($model, 'imgnoticiaFin'); ?> 

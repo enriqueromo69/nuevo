@@ -23,7 +23,7 @@ class NoticiaController extends Controller
 	{
 		return array(
 			array('allow',  // allow all users to perform 'index' and 'view' actions
-			'actions'=>array('index','view','Lista','paginacion'),
+			'actions'=>array('index','view','Lista','paginacion','pagid','notii'),
 			'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
@@ -60,7 +60,7 @@ class NoticiaController extends Controller
 		$pages=new CPagination($count);
 
 		// Resultados por página
-		$pages->pageSize=10;
+		$pages->pageSize=8;
 
 		$pages->applyLimit($criteria);
 		$getUsuarios=Noticia::model()->findAll($criteria);
@@ -71,12 +71,75 @@ class NoticiaController extends Controller
 		    ));
 	}
 
+	public function actionPagid()
+	{
+
+		$criteria=new CDbCriteria();
+		$count=Noticia::model()->count($criteria);
+
+		//Le pasamos el total de registros de la tabla
+		$pages=new CPagination($count);
+
+		// Resultados por página
+		$pages->pageSize=4;
+
+		$pages->applyLimit($criteria);
+		$getUsuarios=Noticia::model()->findAll($criteria);
+
+		$this->render('pagid',array(
+		        "model"=>$getUsuarios,
+		        "pages"=>$pages,
+		    ));
+	}
+
+	public function actionNotii()
+	{
+		$criteria=new CDbCriteria();
+		$count=Noticia::model()->count($criteria);
+
+		//Le pasamos el total de registros de la tabla
+		$pages=new CPagination($count);
+
+		// Resultados por página
+		$pages->pageSize=7;
+
+		$pages->applyLimit($criteria);
+		$getUsuarios=Noticia::model()->findAll($criteria);
+
+		$this->render('notii',array(
+		        "model"=>$getUsuarios,
+		        "pages"=>$pages,
+		    ));
+	}
+
 	public function actionLista($id)
 	{
 		//$this->loadModel($id)->delete();
+		$criteria=new CDbCriteria();
+		$count=Noticia::model()->count($criteria);
 
+		//Le pasamos el total de registros de la tabla
+		$pages=new CPagination($count);
+		//$criteria->order='Fechapublinoticiascol DESC';
+		// Resultados por página
+		$pages->pageSize=4;
+
+		$pages->applyLimit($criteria);
+		$getUsuarios=Noticia::model()->findAll($criteria);
+		//
+		/*
+		$id = Yii::app()->user->getState('id');
+		$criteria=new CDbCriteria;
+		$criteria->compare('developer_id',$id);
+		$criteria->order='status DESC';
+
+		$models = Games::model()->findAll($criteria);
+		*/
 		$this->render('Lista',array(
 			'model'=>$this->loadModel($id),
+			"getUsuarios"=>$getUsuarios,
+		        "pages"=>$pages,
+		
 		));
 	}
 	/**
@@ -164,28 +227,39 @@ class NoticiaController extends Controller
 
 		if(isset($_POST['Noticia']))
 		{
+			
 			$_POST['Noticia']['imgnoticiaFut'] = $model->imgnoticiaFut;
 
 			$_POST['Noticia']['imgnoticiaFin'] = $model->imgnoticiaFin;
-
+			
 			$model->attributes=$_POST['Noticia'];
 
 			$uploadedFile=CUploadedFile::getInstance($model,'imgnoticiaFut');
+			$fileName = "/images/"."{$uploadedFile}"; 
+			$model->imgnoticiaFut = $fileName;
+
 			$uploadedFile2=CUploadedFile::getInstance($model,'imgnoticiaFin');
-			
+			$fileName2 ="/images/"."{$uploadedFile2}"; 
+			//$model->imgnoticiaFin = "/images/".$fileName2;
+			$model->imgnoticiaFin = $fileName2;
+
 			if($model->save()){
 				if(!empty($uploadedFile))  // check if uploaded file is set or not
                 {
                     //$uploadedFile->saveAs(Yii::app()->basePath.'/images/'.$model->imgnoticiaFut);
                     $uploadedFile->saveAs(Yii::getPathOfAlias('webroot').'/images/'.$uploadedFile->getName());
                     //$uploadedFile2->saveAs(Yii::getPathOfAlias('webroot').'/images/'.$imgnoticiaFin->getName());
-
+                    
+					//$model->imgnoticiaFut = "/images/".$fileName;
+                   
                 }
+
                 if(!empty($uploadedFile2))  // check if uploaded file is set or not
                 {
                     //$uploadedFile->saveAs(Yii::app()->basePath.'/images/'.$model->imgnoticiaFut);
                     //$uploadedFile->saveAs(Yii::getPathOfAlias('webroot').'/images/'.$uploadedFile->getName());
-                    $uploadedFile2->saveAs(Yii::getPathOfAlias('webroot').'/images/'.$imgnoticiaFin->getName());
+                    $uploadedFile2->saveAs(Yii::getPathOfAlias('webroot').'/images/'.$uploadedFile2->getName());
+                   
 
                 }
 
@@ -217,13 +291,18 @@ class NoticiaController extends Controller
 	 */
 	public function actionIndex()
 	{
+
 		$model=new Noticia('search');
+		//SELECT * FROM `noticia` ORDER BY `Fechapublinoticiascol` ASC
+		
 		$model->unsetAttributes();  // clear any default values
+		$mssql = $model::model()->findBySQL('SELECT * FROM `noticia` ORDER BY `Fechapublinoticiascol` DESC');
 		if(isset($_GET['Noticia']))
 			$model->attributes=$_GET['Noticia'];
 
 		$this->render('index',array(
 			'model'=>$model,
+			'mssql'=>$mssql,
 		));
 	}
 
@@ -243,7 +322,7 @@ class NoticiaController extends Controller
 	{
 		$model=Noticia::model()->findByPk($id);
 		if($model===null)
-			throw new CHttpException(404,'The requested page does not exist.');
+		throw new CHttpException(404,'The requested page does not exist.');
 		return $model;
 	}
 

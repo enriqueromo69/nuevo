@@ -2,56 +2,52 @@
 /* @var $this NoticiaController */
 /* @var $data Noticia */
 ?>
-<div class="control-group">
-<?php 
 
-//<div class="col-md-4 ">
- ?>
-<div class="col-md-2 col-sm-2">
-<h4><?php echo CHtml::encode($data->titulonoticia); ?></h4>
-<p style="text-align: justify;"><?php 
-		echo CHtml::image(Yii::app()->request->baseUrl.$data->imgnoticiaFut,"imagen",array("width"=>200));
-    ?>    	
-	    </p>
-<h5><?php echo CHtml::encode($data->fechanoticias); ?></h5>
-<p><?php 
-$texto=$data->resumen;
-$contar=strlen($texto);
-$limit=310;
-if ($contar>310) {
-	echo substr($texto,0,$limit)." .......";
-}else
-{
-	echo $texto;
-}
+ <!-- Page Content -->
 
+ <div class="col-sm-4 col-lg-4 col-md-4">
+    <div class="thumbnail">
 
-?></p>
-<?php 
-//$Link= CHtml::link(CHtml::encode("Leer"), array('view', 'id'=>$data->idnoticia)); 
-//$url="http://".$_SERVER['HTTP_HOST'].":".$_SERVER['SERVER_PORT'].$_SERVER['REQUEST_URI'];
+   <p>
 
-//$url=$_SERVER['REQUEST_URI'].$_SERVER['QUERY_STRING'];
+    <?php 
+       // echo CHtml::image(Yii::app()->request->baseUrl.$data->imgnoticiaFut,"imagen",array("width"=>50));
+        /* <img  src="./<?php echo $data->imgnoticiaFut;?>" class="height">*/
+       // echo CHtml::image(Yii::app()->request->baseUrl.$data->imgnoticiaFut,"imagen",array("width"=>50));
+    //<img src="http://placehold.it/320x150" class="img-rounded" alt="Cinque Terre" width="320" height="150">
+    ?>  
+     
+     <img src="./<?php echo $data->imgnoticiaFut;?>" class="img-rounded" alt="Cinque Terre" width="320" height="150">
 
-?>
-<p>	<?php 
-		$url=($data->idnoticia);
-		$this->widget('bootstrap.widgets.TbButton',
-		array(
-		
-		'label'=>'Leer',
-		'url'=>array('lista&id='.$url),
-	)); 
+    </p>
+ 
 
-		$this->widget('bootstrap.widgets.TbButton',
-		array(
-		
-		'label'=>'Modificar',
-		'url'=>array('update&id='.$url),
-		'visible'=>!Yii::app()->user->isGuest,
-		));
+        <div class="caption">
+           <?php 
+            /*
+             <h4 class="pull-right"><?php echo CHtml::encode($data->fechanoticias); ?></h4>
+            */
+            ?>
+            <h4><a href="<?php echo '?r=noticia/lista&id='.$url=($data->idnoticia);?>"><?php echo CHtml::encode($data->titulonoticia); ?></a>
+            </h4>
+            
+            <p><?php 
+            //limitamos la lectura
+            $texto=$data->resumen;
+            $contar=strlen($texto);
+            $limit=150;
+            if ($contar>150) {
+            echo substr($texto,0,$limit)." .......";
+            }else
+            {
+            echo $texto;
+            }
+            // <a target="_blank" href="<?php echo '?r=noticia/lista&id='.$url=($data->idnoticia);?">Leer..</a>
+            ?>
 
-	?></p>
-</div>
+            <a href="<?php echo '?r=noticia/lista&id='.$url=($data->idnoticia);?>">Leer..</a>
 
+        </div>
+       
+    </div>
 </div>

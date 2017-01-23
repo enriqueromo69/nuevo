@@ -19,15 +19,17 @@
 
 <?php foreach ($model as $model) { ?>
 
-<div class="col-md-2 col-sm-2">
-<h4><?php $model['titulonoticia']; ?></h4>
+<div class="col-md-3 col-sm-2">
+
+<h4><?php echo $model['titulonoticia']; ?></h4>
 
 <p >
 <?php 
 echo CHtml::image(Yii::app()->request->baseUrl.$model['imgnoticiaFut'],"imagen",array("width"=>200));
-?>    	
+?>
+    	
 </p>
-<h5><?php echo CHtml::encode($model['fechanoticias']); ?></h5>
+<h5><?php echo CHtml::encode($model['Fechapublinoticiascol']); ?></h5>
 <p><?php 
 $texto=$model['resumen'];
 $contar=strlen($texto);
@@ -70,7 +72,6 @@ if ($contar>310) {
 </div>
 
 
-
 <?php } ?>
 
 </div>
@@ -101,7 +102,7 @@ $this->widget(
 
 */
  ?>
-
+<div class="col-xs-9">
 <div class="pagination">
 
     <?php
@@ -120,4 +121,5 @@ $this->widget(
         )
     ))
     ?>
+</div>
 </div>

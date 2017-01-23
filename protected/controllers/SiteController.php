@@ -83,9 +83,31 @@ public function actionRegister()
 	 */
 	public function actionIndex()
 	{
+		$criteria=new CDbCriteria();
+		$count=Noticia::model()->count($criteria);
+
+		//Le pasamos el total de registros de la tabla
+		$pages=new CPagination($count);
+
+		// Resultados por página
+		$pages->pageSize=7;
+
+		$pages->applyLimit($criteria);
+		$getUsuarios=Noticia::model()->findAll($criteria);
+
 		// renders the view file 'protected/views/site/index.php'
 		// using the default layout 'protected/views/layouts/main.php'
-		$this->render('index');
+		$this->render('index',
+			array(
+		    "model"=>$getUsuarios,
+		    "pages"=>$pages,
+		));
+	}
+	public function actionDigital()
+	{
+		// renders the view file 'protected/views/site/index.php'
+		// using the default layout 'protected/views/layouts/main.php'
+		$this->render('digital');
 	}
 
 	/**

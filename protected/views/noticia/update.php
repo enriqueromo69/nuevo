@@ -6,6 +6,9 @@ $this->breadcrumbs=array(
 	'Noticias'=>array('index'),
 	$model->idnoticia=>array('view','id'=>$model->idnoticia),
 	'Update',
+	'htmlOptions' => array(
+    'enctype' => 'multipart/form-data',
+    ),
 );
 
 $this->menu=array(

@@ -83,6 +83,7 @@ class Categoria extends CActiveRecord
 			'criteria'=>$criteria,
 		));
 	}
+	
 	public static function toList()
 	{
 
