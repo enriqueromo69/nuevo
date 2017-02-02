@@ -77,8 +77,7 @@ $('.search-form form').submit(function(){
 */
 //$model->resumen,
 
- //echo $model->resumen;
-
+//echo $model->resumen;
 
 ?>
 <div class="controls">
@@ -89,8 +88,8 @@ echo CHTML::encode($models);
 }
 */
 
-
 ?>
+
 <?php $this->widget('bootstrap.widgets.TbListView', array(
  'dataProvider'=>$model->search(),
  'itemView'=>'_view',

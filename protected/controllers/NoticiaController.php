@@ -138,7 +138,7 @@ class NoticiaController extends Controller
 		$this->render('Lista',array(
 			'model'=>$this->loadModel($id),
 			"getUsuarios"=>$getUsuarios,
-		        "pages"=>$pages,
+		    "pages"=>$pages,
 		
 		));
 	}
@@ -228,41 +228,36 @@ class NoticiaController extends Controller
 		if(isset($_POST['Noticia']))
 		{
 			
-			$_POST['Noticia']['imgnoticiaFut'] = $model->imgnoticiaFut;
+			//$_POST['Noticia']['imgnoticiaFut'] = $model->imgnoticiaFut;
 
-			$_POST['Noticia']['imgnoticiaFin'] = $model->imgnoticiaFin;
+			//$_POST['Noticia']['imgnoticiaFin'] = $model->imgnoticiaFin;
 			
 			$model->attributes=$_POST['Noticia'];
 
 			$uploadedFile=CUploadedFile::getInstance($model,'imgnoticiaFut');
 			$fileName = "/images/"."{$uploadedFile}"; 
+			//$model->imgnoticiaFut = $fileName;
+			//$model->imgnoticiaFut = ;
+			if(strlen($uploadedFile)>0)
+			//if(!empty($uploadedFile))
+			{
 			$model->imgnoticiaFut = $fileName;
+			$uploadedFile->saveAs(Yii::getPathOfAlias('webroot').'/images/'.$uploadedFile->getName());
+			}
 
 			$uploadedFile2=CUploadedFile::getInstance($model,'imgnoticiaFin');
 			$fileName2 ="/images/"."{$uploadedFile2}"; 
 			//$model->imgnoticiaFin = "/images/".$fileName2;
+			//$model->imgnoticiaFin = $fileName2;
+			if(strlen($uploadedFile2)>0)
+			//if(!empty($uploadedFile2))
+			{
+			$uploadedFile2->saveAs(Yii::getPathOfAlias('webroot').'/images/'.$uploadedFile2->getName());
 			$model->imgnoticiaFin = $fileName2;
+			}
 
 			if($model->save()){
-				if(!empty($uploadedFile))  // check if uploaded file is set or not
-                {
-                    //$uploadedFile->saveAs(Yii::app()->basePath.'/images/'.$model->imgnoticiaFut);
-                    $uploadedFile->saveAs(Yii::getPathOfAlias('webroot').'/images/'.$uploadedFile->getName());
-                    //$uploadedFile2->saveAs(Yii::getPathOfAlias('webroot').'/images/'.$imgnoticiaFin->getName());
-                    
-					//$model->imgnoticiaFut = "/images/".$fileName;
-                   
-                }
-
-                if(!empty($uploadedFile2))  // check if uploaded file is set or not
-                {
-                    //$uploadedFile->saveAs(Yii::app()->basePath.'/images/'.$model->imgnoticiaFut);
-                    //$uploadedFile->saveAs(Yii::getPathOfAlias('webroot').'/images/'.$uploadedFile->getName());
-                    $uploadedFile2->saveAs(Yii::getPathOfAlias('webroot').'/images/'.$uploadedFile2->getName());
-                   
-
-                }
-
+				//if(!empty($uploadedFile))  // check if uploaded file is set or not
 				$this->redirect(array('view','id'=>$model->idnoticia));
 			}
 		}
@@ -298,7 +293,7 @@ class NoticiaController extends Controller
 		$model->unsetAttributes();  // clear any default values
 		$mssql = $model::model()->findBySQL('SELECT * FROM `noticia` ORDER BY `Fechapublinoticiascol` DESC');
 		if(isset($_GET['Noticia']))
-			$model->attributes=$_GET['Noticia'];
+		$model->attributes=$_GET['Noticia'];
 
 		$this->render('index',array(
 			'model'=>$model,

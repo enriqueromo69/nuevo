@@ -1,28 +1,15 @@
-<?php
-/* @var $this SiteController */
-
-$this->pageTitle=Yii::app()->name;
-?>
-
-
-<h1>Bienvenido al <i><?php echo CHtml::encode(Yii::app()->name); ?></i></h1>
-
-
-<p>¡Felicitaciones!.</p>
-
-<p>CONTENIDOS:</p>
 <ul>
 <?php /*
-	<li>View file: <code><?php echo __FILE__; ?></code></li>
-	<li>Layout file: <code><?php echo $this->getLayoutFile('main'); ?></code></li>
-	 */
-	?>
+    <li>View file: <code><?php echo __FILE__; ?></code></li>
+    <li>Layout file: <code><?php echo $this->getLayoutFile('main'); ?></code></li>
+     */
+    ?>
 </ul>
 
 <?php 
   /*
   <div class="col-md-8">
-	<img src="./images/logo_hocicon.jpg" class="img-thumbnail">
+    <img src="./images/logo_hocicon.jpg" class="img-thumbnail">
   </div>
   */
  ?>
@@ -46,47 +33,27 @@ $this->pageTitle=Yii::app()->name;
                 <div class="caption">
                 <?php 
                 /*
-                 <h4 class="pull-right"><?php echo CHtml::encode($model->fechanoticias); ?></h4>
+                <h4 class="pull-right"><?php echo CHtml::encode($modelfechanoticias); ?></h4>
                 */
                 ?>
-                <a href="<?php echo '?r=noticia/lista&id='.$url=($model->idnoticia);?>"><?php echo CHtml::encode($model->titulonoticia);?>       
-                </a>
-                <h4>
-
-                </h4>
+                <h5><a href="<?php echo '?r=noticia/lista&id='.$url=($model['idnoticia']);?>"><?php echo $model['titulonoticia']; ?></a>
+                </h5>
 
                 <p><?php 
                 //limitamos la lectura
-                $textoo=$model->titulonoticia;
-                $contarr=strlen($textoo);
-
-                $texto=$model->resumen;
-
-                $cont=0;
-                if ($contarr<44) 
-                {
-                $cont=0;
-                }
-                else
-                {
-                $cont=$contarr-25;
-                }
-
+                $texto=$model['resumen'];
                 $contar=strlen($texto);
-                $limit=(160-$cont);
-
-                if ($contar>$limit) {
-
-                echo substr($texto,0,$limit)." ...";
-                }
-                else
+                $limit=150;
+                if ($contar>150) {
+                echo substr($texto,0,$limit)." .......";
+                }else
                 {
                 echo $texto;
                 }
-                // <a target="_blank" href="<?php echo '?r=noticia/lista&id='.$url=($model->idnoticia);?">Leer..</a>
+                // <a target="_blank" href="<?php echo '?r=noticia/lista&id='.$url=($modelidnoticia);?">Leer..</a>
                 ?>
-                <a href="<?php echo '?r=noticia/lista&id='.$url=($model->idnoticia);?>">Leer..</a>
 
+                <a href="<?php echo '?r=noticia/lista&id='.$url=($model['idnoticia']);?>">Leer..</a>
 
                 </div>
 

@@ -2,7 +2,7 @@
 
  ?>
 
- <?php
+<?php
 /* @var $this NoticiaController */
 /* @var $data Noticia */
 ?>
@@ -37,11 +37,14 @@
 	<?php echo ($data->descripnoticia); ?>
 	<br />
 
-	<?php /*
+	<?php
+	
+	/*
 	<b><?php echo CHtml::encode($data->getAttributeLabel('idcategoria')); ?>:</b>
 	<?php echo CHtml::encode($data->idcategoria); ?>
 	<br />
+	*/
 
-	*/ ?>
+	?>
 
 </div>

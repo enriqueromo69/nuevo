@@ -1,13 +1,16 @@
 <!DOCTYPE html>
 <html>
 <head>
-
-<title><?php echo CHtml::encode($this->pageTitle); ?></title>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title><?php echo CHtml::encode($this->pageTitle); ?></title>
 
-<link rel="stylesheet" type="text/css" href="css/Style.css">
+
+
+<?php //<link rel="stylesheet" type="text/css" href="css/Stylet.css"> ?>
 <!-- Bootstrap Core CSS -->
+
 <link href="css/bootstrap.min.css" rel="stylesheet">
+
 <!-- Custom CSS -->
 <link href="css/shop-homepage.css" rel="stylesheet">
 <!-- Custom CSS  <link href="css/freelancer.min.css" rel="stylesheet"> -->
@@ -18,12 +21,7 @@
 		padding-top: 110px;
         }
 
- footer{color:#fff}
- footer h3{margin-bottom:30px}
- footer .footer-above{padding-top:50px;background-color:#2C3E50}
- footer .footer-col{margin-bottom:50px}
- footer .footer-below{padding:25px 0;background-color:#233140}
- 
+
 </style>
 
 </head>
@@ -52,11 +50,16 @@ array(
 ),
 ));
 */
+
+/**/
+
 $this->widget('bootstrap.widgets.TbNavbar',array(
-'type' => 'inverse',
+//'type' => 'inverse',
+'type'=>'inverse',
 'items'=>array(
 array(      
     'class' => 'bootstrap.widgets.TbMenu',
+    //'type' => 'navbar',
     'type' => 'navbar',
     'items'=>array(
             array('label'=>'Inicio', 'url'=>array('/site/index')),
@@ -73,6 +76,10 @@ array(
     ),
 ),
 ));  
+
+  
+
+
 ?>
 
 <div class="container" >
@@ -158,6 +165,7 @@ array(
                     'links'=>$this->breadcrumbs,
                     )); ?><!-- breadcrumbs -->
                     <?php endif?>  
+                    
 					<?php echo $content;                  
                     ?>
                  	

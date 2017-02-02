@@ -38,7 +38,7 @@ class TbBreadcrumbs extends CBreadcrumbs
 	 * The separator between links in the breadcrumbs. Defaults to '/'.
 	 * @var string
 	 */
-	public $separator = '/';
+	public $separator = '';
 
 	/**
 	 *### .init()
